@@ -5,7 +5,7 @@
 /* Move this many pixels when moving or resizing with keyboard unless the window has hints saying otherwise.
  *0)move step slow   1)move step fast
  *2)mouse slow       3)mouse fast     */
-static const uint16_t movements[] = {20,40,15,400};
+static const uint16_t movements[] = {20,30,15,300};
 /* resize by line like in mcwm -- jmbi */
 static const bool     resize_by_line          = true;
 /* the ratio used when resizing and keeping the aspect */
@@ -19,9 +19,8 @@ static const uint8_t offsets[] = {0,0,0,0};
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
-/* if this is set to true the inner border and outer borders colors will be swapped */
-static const bool inverted_colors = true;
+static const char *colors[] = {"#3c3836","#3c3836","#F33740","#95A5C7","#CB8B3B","#504945","#171717"};
+static const bool inverted_colors = false;   // I want my colors to be as configured >:(
 ///---Cursor---///
 /* default position of the cursor:
  * correct values are:
@@ -32,7 +31,7 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {3,5,5,4};
+static const uint8_t borders[] = {4,6,5,3};
 /* Windows that won't have a border.
  * It uses substring comparison with what is found in the WM_NAME
  * attribute of the window. You can test this using `xprop WM_NAME`
@@ -40,7 +39,8 @@ static const uint8_t borders[] = {3,5,5,4};
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *menucmd[]   = { "", NULL };
+static const char *menucmd[]   = { "dmenu_run", NULL };
+static const char *terminal[]  = { "urxvt",    NULL  };
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
@@ -193,7 +193,8 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_Right,      cursor_move,       {.i=TWOBWM_CURSOR_RIGHT}},
     {  MOD |SHIFT,        XK_Left,       cursor_move,       {.i=TWOBWM_CURSOR_LEFT}},
     // Start programs
-    {  MOD ,              XK_w,          start,             {.com = menucmd}},
+    {  MOD ,              XK_d,          start,             {.com = menucmd}},
+    {  MOD ,              XK_Return,     start,             {.com = terminal}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},

@@ -1,0 +1,4 @@
+#/bin/sh
+# -*- mode: sh -*-
+make
+sudo make install
